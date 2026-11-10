@@ -24,6 +24,6 @@ MODELS = {
 }
 
 # Aliases de conveniência para desenvolvimento rápido
-DEFAULT_MODEL = MODELS["sonnet-5.5"]
-CHEAPEST_MODEL = MODELS["haiku-5.5"]
-MOST_CAPABLE_MODEL = MODELS["opus-5.5"]
+CHEAPEST_MODEL = MODELS["haiku-5.5"]    # Cheapest Model
+DEFAULT_MODEL = MODELS["sonnet-5.5"]    # Average model
+MOST_CAPABLE_MODEL = MODELS["opus-5.5"] # More expensive model

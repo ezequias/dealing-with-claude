@@ -1,15 +1,16 @@
 import os
 from anthropic import Anthropic
 from auth import key
+from models import MODELS, CHEAPEST_MODEL  # Importa o dicionário e os atalhos
 
 # Initialize the client API
 client = Anthropic(api_key=key)
 
 # 1. Personalized instructions (similar to the Project's System Prompt / Custom Instructions)
 system_instructions = """
-You are an assistant specializing in software architecture and GIS systems.
-Always provide responses that focus on clean, modular code that adheres to the repository's guidelines.
-"""
+                    You are an assistant specializing in software architecture and GIS systems.
+                    Always provide responses that focus on clean, modular code that adheres to the repository's guidelines.
+                    """
 
 # 2. Load local files context (as same as the Knowledge Base of the Project)
 def load_project_folder(folder_path):
@@ -35,12 +36,14 @@ context_docs = load_project_folder("docs")
 user_prompt = "What are the best practices for building a simple and consistent data architecture based on mcp agents for 32 simultaneous users?"
 
 response = client.messages.create(
-    model="claude-3-5-sonnet-20241022",
-    max_tokens=2048,
+    model= MODELS["haiku-5.5"],  # Using the cheapest model for cost efficiency
+    max_tokens=4096,
     system=f"{system_instructions}\n\n--- REFERENCE CONTEXT OF THE PROJECT ---\n{context_docs}",
     messages=[
         {"role": "user", "content": user_prompt}
     ]
 )
 
-print(response.content[0].text)
+for block in response.content:
+    if hasattr(block, "text"):
+        print(block.text)

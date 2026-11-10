@@ -3,3 +3,5 @@ env/
 
 # Credentials and API keys
 auth.py
+
+*.pyc

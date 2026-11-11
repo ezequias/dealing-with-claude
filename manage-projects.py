@@ -23,7 +23,7 @@ def load_project_folder(folder_path):
                     try:
                         with open(full_path, "r", encoding="utf-8", errors="ignore") as f:
                             content = f.read()
-                            context_parts.append(f"=== ARQUIVO: {file} ===\n{content}")
+                            context_parts.append(f"=== FILE: {file} ===\n{content}")
                     except Exception as e:
                         print(f"Erro ao ler {file}: {e}")
     return "\n\n".join(context_parts)

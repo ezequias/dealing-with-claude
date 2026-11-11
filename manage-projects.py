@@ -8,8 +8,7 @@ client = Anthropic(api_key=key)
 
 # 1. Personalized instructions (similar to the Project's System Prompt / Custom Instructions)
 system_instructions = """
-                    You are an assistant specializing in software architecture and GIS systems.
-                    Always provide responses that focus on clean, modular code that adheres to the repository's guidelines.
+                    Talk about the first principles on the optics of a software architect. Be as much as didatic possible.
                     """
 
 # 2. Load local files context (as same as the Knowledge Base of the Project)
@@ -33,15 +32,13 @@ def load_project_folder(folder_path):
 context_docs = load_project_folder("docs")
 
 # 3. Create the request combining instructions and the files' context
-user_prompt = "What are the best practices for building a simple and consistent data architecture based on mcp agents for 32 simultaneous users?"
+user_prompt = "How does first principles theory works for a software architect?"
 
 response = client.messages.create(
     model= MODELS["haiku-5.5"],  # Using the cheapest model for cost efficiency
     max_tokens=4096,
     system=f"{system_instructions}\n\n--- REFERENCE CONTEXT OF THE PROJECT ---\n{context_docs}",
-    messages=[
-        {"role": "user", "content": user_prompt}
-    ]
+    messages=[{"role": "user", "content": user_prompt}]
 )
 
 for block in response.content:
